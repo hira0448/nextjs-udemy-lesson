@@ -1,7 +1,6 @@
-/* eslint-disable @next/next/link-passhref */
 import Link from "next/link";
 import Layout from "../../components/Layout";
-import { getAllPostIds, getAllPostsData, getPostData } from "../../lib/posts";
+import { getAllPostIds, getPostData } from "../../lib/posts";
 
 export default function Post({ post }) {
   if (!post) {
@@ -16,7 +15,7 @@ export default function Post({ post }) {
       </p>
       <p className="mb-8 text-xl font-bold">{post.title}</p>
       <p className="px-10">{post.body}</p>
-      <Link href="/blog-page">
+      <Link href="/blog-page" passHref>
         <div className="flex cursor-pointer mt-12">
           <svg
             className="w-6 h-6 mr-3"
@@ -50,7 +49,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { post: post } = await getAllPostsData(params.id);
+  const { post: post } = await getPostData(params.id);
 
   return {
     props: {
